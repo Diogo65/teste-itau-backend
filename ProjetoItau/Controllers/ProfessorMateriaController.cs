@@ -16,30 +16,47 @@ namespace ProjetoItau.Controllers
     {
         [HttpPost]
         [Route("")]
-        public async Task<ActionResult> AdicionarMateriaAoProfessor(
-            [FromServices] DataContext context,
-            [FromBody] ProfessorMateriaRequest model)
+        public async Task<ActionResult<bool>> AdicionarMateriaAoProfessor(
+        [FromServices] DataContext context,
+        [FromBody] ProfessorMateriaRequest model)
         {
             if (ModelState.IsValid)
             {
-                foreach (var materia in model.Materias)
+                try
                 {
-                    ProfessorMateria professorMateria = new ProfessorMateria()
-                    {
-                        Professor = model.Professor,
-                        Materia = materia
-                    };
+                    var validProfessorMateria = await context.ProfessoresMaterias
+                    .Include(x => x.Professor)
+                    .AsNoTracking()
+                    .Where(x => x.MateriaId == model.MateriaId && 
+                    x.ProfessorId == model.ProfessorId)
+                    .FirstOrDefaultAsync();
 
-                    context.ProfessoresMaterias.Add(professorMateria);
-                    await context.SaveChangesAsync();
+                    if(validProfessorMateria == null)
+                    {
+                        ProfessorMateria professorMateria = new ProfessorMateria()
+                        {
+                            ProfessorId = model.ProfessorId,
+                            MateriaId = model.MateriaId
+                        };
+
+                        context.ProfessoresMaterias.Add(professorMateria);
+                        await context.SaveChangesAsync();
+
+                        return true;
+                    }
+                    return false;
+                }
+                catch (Exception)
+                {
+
+                    return false;
                 }
             }
             else
             {
-                return BadRequest(ModelState);
+                return false;
             }
 
-            return Ok("Foi adicionado novas matéria para o professor " + model.Professor.Nome);
         }
 
         [HttpGet]

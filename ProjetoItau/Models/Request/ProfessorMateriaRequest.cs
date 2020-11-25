@@ -9,8 +9,8 @@ namespace ProjetoItau.Models.Request
     public class ProfessorMateriaRequest
     {
         [Required(ErrorMessage = "Campo obrigatório")]
-        public Professor Professor { get; set; }
+        public int ProfessorId { get; set; }
         [Required(ErrorMessage = "Campo obrigatório")]
-        public IList<Materia> Materias { get; set; }
+        public int MateriaId{ get; set; }
     }
 }
