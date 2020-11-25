@@ -15,10 +15,5 @@ namespace ProjetoItau.Models
         [MaxLength(60, ErrorMessage = "Esse campo deve contrer menos de 60 caracteres")]
         public string Nome { get; set; }
         private IList<ProfessorMateria> Materias { get; set; }
-
-        //internal void IncluiMateria(Professor materia)
-        //{
-        //    this.Materias.Add(new ProfessorMateria() { Materia = materia });
-        //}
     }
 }
