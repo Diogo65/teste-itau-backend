@@ -42,7 +42,7 @@ namespace ProjetoItau
                     {
                         Name = "Diogo Souza",
                         Email = "diogo_souza97@outlook.com",
-                        Url = new Uri("https://twitter.com/spboyer"),
+                        Url = new Uri("https://github.com/Diogo65/"),
                     },
                     License = new OpenApiLicense
                     {

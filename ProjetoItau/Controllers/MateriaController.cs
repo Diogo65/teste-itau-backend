@@ -23,9 +23,9 @@ namespace ProjetoItau.Controllers
         [Route("")]
         public async Task<ActionResult<Materia>> Post(
             [FromServices] DataContext context,
-            [FromBody]Materia model)
+            [FromBody] Materia model)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 context.Materias.Add(model);
                 await context.SaveChangesAsync();
@@ -36,5 +36,25 @@ namespace ProjetoItau.Controllers
                 return BadRequest(ModelState);
             }
         }
+
+        //    [HttpPost]
+        //    [Route("")]
+        //    public async Task<ActionResult<Materia>> Post(
+        //[FromServices] DataContext context,
+        //[FromBody] Materia model)
+        //    {
+
+
+        //if (ModelState.IsValid)
+        //{
+        //    context.Materias.Add(model);
+        //    await context.SaveChangesAsync();
+        //    return model;
+        //}
+        //else
+        //{
+        //    return BadRequest(ModelState);
+        //}
     }
+    
 }
